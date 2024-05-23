@@ -19,8 +19,8 @@ def get_access_token():
     app_id = config["app_id"]
     # appSecret
     app_secret = config["app_secret"]
-    post_url = ("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={appid}&secret={secret}"
-             .format(appid=app_id, secret=app_secret))
+    post_url = ("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={}&secret={}&#34; 
+                .format(app_id, app_secret))
     try:
         access_token = get(post_url).json()['access_token']
     except KeyError:
@@ -37,7 +37,7 @@ def get_weather(region):
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
     key = config["weather_key"]
-    region_url = "https://geoapi.qweather.com/v2/city/lookup?location={}&key={}".format(region, key)
+    region_url = "https://geoapi.qweather.com/v2/city/lookup?location={}&key={}&#34;.format(region,  key)
     response = get(region_url, headers=headers).json()
     if response["code"] == "404":
         print("推送消息失败，请检查地区名是否有误！")
@@ -50,7 +50,7 @@ def get_weather(region):
     else:
         # 获取地区的location--id
         location_id = response["location"][0]["id"]
-    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
+    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}&#34;.format(location_id,  key)
     response = get(weather_url, headers=headers).json()
     # 天气
     weather = response["now"]["text"]
@@ -103,7 +103,7 @@ def get_birthday(birthday, year, today):
  
  
 def get_ciba():
-    url = "http://open.iciba.com/dsapi/" 
+    url = "http://open.iciba.com/dsapi/&#34; 
     headers = {
         'Content-Type': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
@@ -116,7 +116,7 @@ def get_ciba():
  
  
 def send_message(to_user, access_token, region_name, weather, temp, wind_dir, note_ch, note_en):
-    url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token) 
+    url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}&#34;.format(access_token) 
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
     month = localtime().tm_mon
@@ -138,7 +138,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, no
     data = {
         "touser": to_user,
         "template_id": config["template_id"],
-        "url": "http://weixin.qq.com/download", 
+        "url": "http://weixin.qq.com/download&#34;, 
         "topcolor": "#FF0000",
         "data": {
             "date": {
@@ -231,4 +231,4 @@ if __name__ == "__main__":
     for user in users:
         send_message(user, accessToken, region, weather, temp, wind_dir, note_ch, note_en)
     os.system("pause")
-
+ 
